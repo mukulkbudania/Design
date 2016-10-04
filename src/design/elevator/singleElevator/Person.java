@@ -5,17 +5,16 @@ package design.elevator.singleElevator;
  */
 public class Person{
     Elevator assignedElevator;
+    Floor assignedFloor;
 
     boolean pressButton(Button b){
-        if(b.isLiftButton){
-            if(assignedElevator.currentFloor < b.getVal()){
-                assignedElevator.upRequests.add(new Request(b.getVal()));
-            } else {
-                assignedElevator.downRequests.add(new Request(b.getVal()));
-            }
-        } else{
-
+        if(b instanceof LiftButton){
+            LiftButton lB = (LiftButton)b;
+            return lB.pressed();
+        } else if(b instanceof FloorButton) {
+            FloorButton fB = (FloorButton)b;
+            return fB.pressed();
         }
-    return true;
+    return false;
     }
 }

@@ -14,4 +14,8 @@ public class Building{
             floors.add(new Floor());
         }
     }
+
+    public static List<Floor> getFloors() {
+        return floors;
+    }
 }
