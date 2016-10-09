@@ -9,19 +9,60 @@ import java.util.Queue;
 public class Elevator{
 	
 	//State information
-	int currentFloor;
-	Direction direction;
+	private int currentFloor;
+	private Direction direction;
 	
-	Queue<Request> upRequests;
-	Queue<Request> downRequests;
-	List<Button> buttons;
+	private Queue<Request> upRequests;
+	private Queue<Request> downRequests;
+	private List<Button> buttons;
 
 	void initialize(){
+
 		this.currentFloor = 0;
 		this.direction = Direction.STANDBY;
 		upRequests = new LinkedList<Request>();
 		downRequests = new LinkedList<Request>();
 		buttons = new ArrayList<Button>(5);
+	}
+
+	public int getCurrentFloor() {
+		return currentFloor;
+	}
+
+	public void setCurrentFloor(int currentFloor) {
+		this.currentFloor = currentFloor;
+	}
+
+	public Direction getDirection() {
+		return direction;
+	}
+
+	public void setDirection(Direction direction) {
+		this.direction = direction;
+	}
+
+	public Queue<Request> getUpRequests() {
+		return upRequests;
+	}
+
+	public void setUpRequests(Queue<Request> upRequests) {
+		this.upRequests = upRequests;
+	}
+
+	public Queue<Request> getDownRequests() {
+		return downRequests;
+	}
+
+	public void setDownRequests(Queue<Request> downRequests) {
+		this.downRequests = downRequests;
+	}
+
+	public List<Button> getButtons() {
+		return buttons;
+	}
+
+	public void setButtons(List<Button> buttons) {
+		this.buttons = buttons;
 	}
 	
 	Request getNextRequest(){

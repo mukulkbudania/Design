@@ -5,27 +5,37 @@ package design.elevator.singleElevator;
  */
 public class RequestDispatcher {
 
-    public static Elevator getOptimizedElevator() {
+    public static Elevator getOptimizedElevator(Direction dir, Floor belongsToFloor) {
+        //TODO add this logic
         return null;
     }
 
-    public static boolean processRequest(Direction dir, Floor belongsToFloor) {
-        return processRequest(dir,belongsToFloor,null);
+    public static boolean queueRequest(Direction dir, Floor belongsToFloor,Person p) {
+        return queueRequest(dir,belongsToFloor,null,p);
     }
 
-    public static boolean processRequest(Direction dir, Floor belongsToFloor, Elevator assignedElevator) {
-        if(assignedElevator==null){
-            assignedElevator = getOptimizedElevator();
-        }
-        if(assignedElevator.currentFloor < belongsToFloor.getNumber()){
-            assignedElevator.upRequests.add(new Request(belongsToFloor.getNumber()));
+    public static boolean queueRequest(Direction dir, Floor belongsToFloor, Elevator assignedElevator, Person person) {
+        if(dir!=null){
+            if(assignedElevator==null){
+                assignedElevator = getOptimizedElevator(dir,belongsToFloor);
+            }
+            if(assignedElevator.getCurrentFloor() < belongsToFloor.getNumber()){
+                assignedElevator.getUpRequests().add(new Request(belongsToFloor.getNumber(),person));
+            } else {
+                assignedElevator.getDownRequests().add(new Request(belongsToFloor.getNumber(),person));
+            }
         } else {
-            assignedElevator.downRequests.add(new Request(belongsToFloor.getNumber()));
+            if(dir.equals(Direction.DOWN)){
+                assignedElevator.getDownRequests().add(new Request(belongsToFloor.getNumber(),person));
+            } else {
+                assignedElevator.getUpRequests().add(new Request(belongsToFloor.getNumber(),person));
+            }
         }
+        return true;
     }
 
-    public static boolean processRequest(int value, Elevator belongsToElevator) {
+    public static boolean queueRequest(int value, Elevator belongsToElevator,Person p) {
         Floor floor = Building.getFloors().get(value);
-        
+        return queueRequest(null,floor,belongsToElevator,p);
     }
 }

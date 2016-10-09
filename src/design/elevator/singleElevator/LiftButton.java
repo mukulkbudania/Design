@@ -8,13 +8,24 @@ public class LiftButton implements Button {
     private int value;
     private Elevator belongsToElevator;
 
+    public int getValue() {
+        return value;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
+    }
+
+    public Elevator getBelongsToElevator() {
+        return belongsToElevator;
+    }
+
+    public void setBelongsToElevator(Elevator belongsToElevator) {
+        this.belongsToElevator = belongsToElevator;
+    }
+
     @Override
-    public boolean pressed() {
-        return RequestDispatcher.processRequest(value,belongsToElevator);
-        if(belongsToElevator.currentFloor < value){
-            belongsToElevator.upRequests.add(new Request(value));
-        } else {
-            belongsToElevator.downRequests.add(new Request(value));
-        }
+    public boolean pressed(Person p) {
+        return RequestDispatcher.queueRequest(value,belongsToElevator);
     }
 }
